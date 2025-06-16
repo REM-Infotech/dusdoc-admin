@@ -68,7 +68,7 @@ async function handleSubmit(event: Event) {
         </div>
       </form>
     </div>
-    <div class="bg-dark">teste</div>
+    <div class="bg-dark">teste2</div>
   </div>
 </template>
 
