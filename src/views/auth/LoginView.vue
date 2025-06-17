@@ -3,6 +3,7 @@ import "@/assets/css/main.css";
 import { useRouter } from "vue-router";
 
 import logoSystem from "@/assets/image.png";
+import FooterView from "@/components/FooterView.vue";
 import type { LoginForm } from "@/types/forms";
 import { reactive } from "vue";
 import { handleAuthentication } from "./handlerAuthentication";
@@ -68,7 +69,7 @@ async function handleSubmit(event: Event) {
         </div>
       </form>
     </div>
-    <div class="bg-dark">teste2</div>
+    <FooterView />
   </div>
 </template>
 
