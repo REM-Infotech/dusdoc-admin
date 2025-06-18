@@ -24,9 +24,9 @@ const router = createRouter({
       },
     },
     {
-      path: "/bots",
-      name: "bots",
-      component: () => import("@/views/bots/RobotsView.vue"),
+      path: "/funcionarios",
+      name: "funcionarios",
+      component: () => import("@/views/funcionarios/FuncionariosView.vue"),
       meta: {
         requireAuth: true,
       },

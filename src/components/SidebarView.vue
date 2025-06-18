@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 const props = defineProps({
@@ -54,11 +56,15 @@ function navClass(name: string) {
       </li>
       <li class="nav-item border-bottom">
         <RouterLink :to="{ name: 'bots' }" :class="navClass('bots')">
-          <IBiRobot
+          <FontAwesomeIcon
+            :icon="faUsers"
+            size="2x"
             class="me-2"
             :style="{ fontSize: computedToggle ? '20px' : '32px', transition: 'font-size 0.8s' }"
           />
-          <span class="fw-bold sidebar-text align-text-start" title="Agendamentos"> Robôs </span>
+          <span class="fw-bold sidebar-text align-text-start" title="Agendamentos">
+            Funcionários
+          </span>
         </RouterLink>
       </li>
       <li class="nav-item border-bottom">
