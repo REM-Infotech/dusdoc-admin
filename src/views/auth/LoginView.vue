@@ -35,7 +35,6 @@ async function handleSubmit(event: Event) {
     router.push({ name: "dashboard" });
   } catch (err) {
     // Handle login error
-    console.log(err);
     if (isAxiosError(err)) {
       let msg = "Erro ao realizar login";
       if (err.response?.data) {
