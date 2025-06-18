@@ -59,6 +59,6 @@ onMounted(() => {
 .canvaRender {
   width: 95%;
   height: 95%;
-  transition: 1s;
+  transition: 15s;
 }
 </style>

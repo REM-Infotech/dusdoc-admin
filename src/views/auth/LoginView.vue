@@ -2,7 +2,7 @@
 import "@/assets/css/main.css";
 import { useRouter } from "vue-router";
 
-import logoSystem from "@/assets/image.png";
+import logoSystem from "@/assets/img/favicon.png";
 import FooterView from "@/components/FooterView.vue";
 import { api } from "@/main";
 import type { LoginForm } from "@/types/forms";
@@ -58,7 +58,12 @@ async function handleSubmit(event: Event) {
         @submit="handleSubmit"
       >
         <div class="header-login d-flex flex-column mb-4 gap-2">
-          <img class="align-self-between mb-2" :src="logoSystem" alt="" width="98px" />
+          <img
+            class="align-self-between mb-2 rounded rounded-4"
+            :src="logoSystem"
+            alt=""
+            width="98px"
+          />
           <div class="brand">
             <span class="fs-3 align-self-center"><small> DusDoc </small></span>
             <span class="fw-semibold fs-5 align-self-center">

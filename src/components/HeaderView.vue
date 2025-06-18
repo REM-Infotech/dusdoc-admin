@@ -44,8 +44,8 @@ watch(toggler, () => {
         "
       >
         <img
-          src="@/assets/image.png"
-          class="ms-2 bi pe-none me-2"
+          src="@/assets/img/favicon.png"
+          class="ms-2 bi pe-none me-2 rounded rounded-2"
           alt=""
           width="40"
           aria-hidden="true"
