@@ -25,7 +25,7 @@ async function handleSubmit(event: Event) {
   event.preventDefault();
 
   try {
-    const response: LoginResponse = await api.post("/auth_funcionario/login", FormLogin);
+    const response: LoginResponse = await api.post("/auth_admin/login", FormLogin);
 
     // Handle successful login
     alert(response.data?.message);
