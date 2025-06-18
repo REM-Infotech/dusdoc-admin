@@ -57,8 +57,8 @@ onMounted(() => {
 
 <style lang="css" scoped>
 .canvaRender {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  height: 95%;
   transition: 1s;
 }
 </style>
