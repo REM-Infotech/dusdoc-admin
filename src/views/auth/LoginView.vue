@@ -47,6 +47,7 @@ async function handleSubmit(event: Event) {
     if (import.meta.env.VITE_IS_DEV) {
       router.push({ name: "home" });
     }
+    showOverlayEx1.value = false;
   }
 }
 </script>
