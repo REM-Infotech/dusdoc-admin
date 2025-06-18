@@ -55,7 +55,7 @@ function navClass(name: string) {
         </RouterLink>
       </li>
       <li class="nav-item border-bottom">
-        <RouterLink :to="{ name: 'bots' }" :class="navClass('bots')">
+        <RouterLink :to="{ name: 'funcionarios' }" :class="navClass('funcionarios')">
           <FontAwesomeIcon
             :icon="faUsers"
             size="2x"

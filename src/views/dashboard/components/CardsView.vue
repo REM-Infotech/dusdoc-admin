@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
       <div class="card bg-body-tertiary text-white mb-4">
         <div class="card-body d-flex justify-content-between align-items-center">
           <div class="text-card d-flex flex-column">
-            <span class="fs-6 text-body-secondary">Total de bots contratados</span>
+            <span class="fs-6 text-body-secondary">Total de funcionarios contratados</span>
             <span class="fs-3 fw-bold">25</span>
           </div>
           <div class="icon bg-primary p-3 rounded rounded-4 bg-opacity-50">
