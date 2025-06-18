@@ -1,16 +1,10 @@
-import type { AxiosError, AxiosResponse } from "axios";
+import type { AxiosResponse } from "axios";
 
-export interface AxiosResponseError extends AxiosError {
-  response?: AxiosError["response"] & {
-    data: {
-      message: string;
-    };
-  };
-}
-
-export interface ResponseApi extends AxiosResponse {
+interface LoginResponse extends AxiosResponse {
   data?: {
-    message: string;
-    token: string;
+    message?: string;
+    token?: string;
   };
 }
+
+export type { LoginResponse };

@@ -4,9 +4,11 @@ import { useRouter } from "vue-router";
 
 import logoSystem from "@/assets/image.png";
 import FooterView from "@/components/FooterView.vue";
+import { api } from "@/main";
 import type { LoginForm } from "@/types/forms";
+import { isAxiosError } from "axios";
 import { reactive } from "vue";
-import { handleAuthentication } from "./handlerAuthentication";
+import type { LoginResponse } from "./types";
 const router = useRouter();
 
 const FormLogin: LoginForm = reactive({
@@ -16,14 +18,33 @@ const FormLogin: LoginForm = reactive({
 });
 
 async function handleSubmit(event: Event) {
+  // showOverlayEx1.value = true;
+
   event.preventDefault();
 
-  const isAuth = await handleAuthentication(FormLogin);
+  try {
+    const response: LoginResponse = await api.post("/auth_funcionario/login", FormLogin);
 
-  alert(isAuth.message);
+    // Handle successful login
+    alert(response.data?.message);
 
-  if (isAuth.result) {
+    localStorage.setItem("token", response.data?.token as string);
+
     router.push({ name: "dashboard" });
+  } catch (err) {
+    // Handle login error
+    console.log(err);
+    if (isAxiosError(err)) {
+      let msg = "Erro ao realizar login";
+      if (err.response?.data) {
+        msg = err.response?.data.message;
+      }
+
+      alert(msg);
+    }
+    if (import.meta.env.VITE_IS_DEV) {
+      router.push({ name: "home" });
+    }
   }
 }
 </script>
