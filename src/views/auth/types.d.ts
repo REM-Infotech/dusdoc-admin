@@ -10,9 +10,7 @@ export interface AxiosResponseError extends AxiosError {
 
 export interface ResponseApi extends AxiosResponse {
   data?: {
-    access?: { token?: string; expiration?: string };
-    refresh?: { token?: string; expiration?: string };
-    timezone?: string;
-    isAdmin?: boolean;
+    message: string;
+    token: string;
   };
 }

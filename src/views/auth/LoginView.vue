@@ -19,7 +19,10 @@ async function handleSubmit(event: Event) {
   event.preventDefault();
 
   const isAuth = await handleAuthentication(FormLogin);
-  if (isAuth) {
+
+  alert(isAuth.message);
+
+  if (isAuth.result) {
     router.push({ name: "dashboard" });
   }
 }

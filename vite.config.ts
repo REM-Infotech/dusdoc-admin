@@ -11,6 +11,9 @@ import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: ["dusdoc.robotz.dev"],
+  },
   css: {
     modules: {
       scopeBehaviour: "local", // faz todos os arquivos serem tratados como módulos!
