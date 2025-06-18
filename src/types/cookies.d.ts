@@ -40,7 +40,7 @@ export interface TCookieAttributes {
   };
 }
 
-export interface TCookiesCrawJUD {
+export interface TCookiesDusDoc {
   cookiesApp?: Record<string, string | undefined> & { token?: string };
   defaultOptions?: TCookieAttributes["defaultOptions"];
   insertKey(key: string, value: string, options: TCookieAttributes["defaultOptions"]): void;

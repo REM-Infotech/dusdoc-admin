@@ -1,4 +1,4 @@
-<!-- filepath: /home/nicholas-silva/VueCrawJUD/src/views/dashboard/ChartExecutions.vue -->
+<!-- filepath: /home/nicholas-silva/VueDusDoc/src/views/dashboard/ChartExecutions.vue -->
 <template>
   <div class="canvaRender">
     <canvas ref="canvasRef"></canvas>
@@ -57,9 +57,8 @@ onMounted(() => {
 
 <style lang="css" scoped>
 .canvaRender {
-  width: calc(100dvw - 800px);
-  min-width: calc(100dvw - 800px);
-  height: calc(90dvh - 320px);
+  width: 100%;
+  height: 100%;
   transition: 1s;
 }
 </style>

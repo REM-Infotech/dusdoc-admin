@@ -1,7 +1,7 @@
-import type { TCookieAttributes, TCookiesCrawJUD } from "@/types/cookies";
+import type { TCookieAttributes, TCookiesDusDoc } from "@/types/cookies";
 import Cookies from "js-cookie";
 
-export default class CookiesCrawJUD implements TCookiesCrawJUD {
+export default class CookiesDusDoc implements TCookiesDusDoc {
   defaultOptions?: TCookieAttributes["defaultOptions"];
 
   insertKey(

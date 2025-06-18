@@ -51,7 +51,7 @@ watch(toggler, () => {
           aria-hidden="true"
         />
 
-        <span class="fs-4"> CrawJUD </span>
+        <span class="fs-4"> DusDoc </span>
       </a>
       <div class="d-flex gap-2" role="search">
         <button

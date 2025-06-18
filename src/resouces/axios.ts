@@ -3,7 +3,7 @@ import axios from "axios";
 
 type AxiosRequests = "get" | "post";
 
-class AxiosCrawJUD {
+class AxiosDusDoc {
   AxiosApi: AxiosInstance;
   axios_config: AxiosRequestConfig<unknown> = { baseURL: "/" };
   constructor(axios_config: AxiosRequestConfig<unknown> = { baseURL: "/" }) {
@@ -27,4 +27,4 @@ class AxiosCrawJUD {
   }
 }
 
-export default AxiosCrawJUD;
+export default AxiosDusDoc;

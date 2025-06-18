@@ -60,7 +60,7 @@ async function handleSubmit(event: Event) {
         <div class="header-login d-flex flex-column mb-4 gap-2">
           <img class="align-self-between mb-2" :src="logoSystem" alt="" width="98px" />
           <div class="brand">
-            <span class="fs-3 align-self-center"><small> CrawJUD </small></span>
+            <span class="fs-3 align-self-center"><small> DusDoc </small></span>
             <span class="fw-semibold fs-5 align-self-center">
               <em> v2.0 </em>
             </span>

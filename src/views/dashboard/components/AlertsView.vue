@@ -41,7 +41,7 @@ const renderCards: TypeCards[] = [
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
-  width: calc(100dvw - 1525px);
+  width: 100%;
   height: 160px;
 }
 
