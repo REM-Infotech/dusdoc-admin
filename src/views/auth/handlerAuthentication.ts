@@ -9,7 +9,7 @@ export async function handleAuthentication(form: LoginForm) {
   try {
     const response: ResponseApi = await api.request({
       method: "POST",
-      url: "/login",
+      url: "/auth_admin/login",
       data: form,
     });
 
