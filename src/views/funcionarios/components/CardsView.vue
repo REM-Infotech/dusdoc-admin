@@ -1,31 +1,40 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { pinia } from "@/main";
+import manager from "@/resouces/socketio";
+import funcionariosStore from "@/stores/funcionarios";
+import { faPlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
-import { watch } from "vue";
+import { storeToRefs } from "pinia";
 DataTable.use(DataTablesCore);
 
-const data = ref<Array<string[]>>([]);
+const { data } = storeToRefs(funcionariosStore(pinia));
 const selectedItem = ref("");
 const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg: "Empresa" }];
 
 const query = ref("");
-
+const clicked = ref(false);
 const computedList = computed(() => {
   return list.filter((item) => item.msg.toLowerCase().includes(query.value.toLowerCase()));
 });
 
 function classListItem(item: string) {
-  console.log(selectedItem.value);
-
   return selectedItem.value === item ? "list-group-item active" : "list-group-item";
 }
+const io = manager.socket("/admin_funcionarios_informacoes");
+io.connect();
+async function funcionarios_data_req() {
+  io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
+    console.log(dataReturn);
+    data.value = dataReturn.data;
+  });
+}
 
-watch(selectedItem, () => {
-  data.value = [["nicholas azevedo", "mail.google.com", "009"]];
+watch(clicked, () => {
+  funcionarios_data_req();
 });
 </script>
 
@@ -60,15 +69,26 @@ watch(selectedItem, () => {
       <div class="card" style="height: 75dvh">
         <div class="card-header d-flex justify-content-between">
           <span class="fw-semibold"> Lista De Funcionários </span>
-          <button class="btn btn-sm btn-outline-primary ms-auto">
-            <span class="d-flex allign-items-center">
-              <FontAwesomeIcon
-                :icon="faPlus"
-                class="me-1 rounded border border-1 p-1 border-primary"
-              />
-              <span class="align-self-center">Cadastrar Funcionário</span>
-            </span>
-          </button>
+          <div class="d-flex ms-auto gap-2">
+            <button class="btn btn-sm btn-outline-warning" @click="clicked = !clicked">
+              <span class="d-flex allign-items-center">
+                <FontAwesomeIcon
+                  :icon="faRefresh"
+                  class="me-1 rounded border border-1 p-1 border-warning"
+                />
+                <span class="align-self-center">Recarregar Usuários</span>
+              </span>
+            </button>
+            <button class="btn btn-sm btn-outline-primary">
+              <span class="d-flex allign-items-center">
+                <FontAwesomeIcon
+                  :icon="faPlus"
+                  class="me-1 rounded border border-1 p-1 border-primary"
+                />
+                <span class="align-self-center">Cadastrar Funcionário</span>
+              </span>
+            </button>
+          </div>
         </div>
         <div class="card-body">
           <DataTable

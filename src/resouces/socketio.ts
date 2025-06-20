@@ -7,8 +7,6 @@ const manager = new Manager({
   port: baseUrl.port,
   secure: baseUrl.protocol === "https:",
   transports: ["websocket"],
-  agent: true,
-  autoConnect: true,
-  withCredentials: true,
+  autoConnect: false,
 });
 export default manager;
