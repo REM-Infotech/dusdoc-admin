@@ -22,4 +22,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SidebarView: typeof import('./src/components/SidebarView.vue')['default']
   }
+  export interface GlobalDirectives {
+    vBModal: typeof import('bootstrap-vue-next/directives/BModal')['vBModal']
+  }
 }

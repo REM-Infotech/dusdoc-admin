@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
+import FormFuncionarioView from "./FormFuncionarioView.vue";
 DataTable.use(DataTablesCore);
 
 const { data } = storeToRefs(funcionariosStore(pinia));
@@ -79,7 +80,7 @@ watch(clicked, () => {
                 <span class="align-self-center">Recarregar Usuários</span>
               </span>
             </button>
-            <button class="btn btn-sm btn-outline-primary">
+            <button v-b-modal.FormFuncionario class="btn btn-sm btn-outline-primary">
               <span class="d-flex allign-items-center">
                 <FontAwesomeIcon
                   :icon="faPlus"
@@ -111,6 +112,7 @@ watch(clicked, () => {
       </div>
     </div>
   </div>
+  <FormFuncionarioView />
 </template>
 
 <style lang="css" scoped>
