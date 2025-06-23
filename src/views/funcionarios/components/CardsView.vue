@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
+import FormAdmissionalView from "./FormAdmissionalView.vue";
 import FormFuncionarioView from "./FormFuncionarioView.vue";
 DataTable.use(DataTablesCore);
 
@@ -77,7 +78,16 @@ watch(clicked, () => {
                   :icon="faRefresh"
                   class="me-1 rounded border border-1 p-1 border-warning"
                 />
-                <span class="align-self-center">Recarregar Usuários</span>
+                <span class="align-self-center fw-bold">Recarregar Usuários</span>
+              </span>
+            </button>
+            <button v-b-modal.FormAdmissional class="btn btn-sm btn-outline-blue-chill">
+              <span class="d-flex allign-items-center">
+                <FontAwesomeIcon
+                  :icon="faPlus"
+                  class="me-1 rounded border border-1 p-1 border-blue-chill"
+                />
+                <span class="align-self-center fw-bold">Nova Admissão</span>
               </span>
             </button>
             <button v-b-modal.FormFuncionario class="btn btn-sm btn-outline-primary">
@@ -86,7 +96,7 @@ watch(clicked, () => {
                   :icon="faPlus"
                   class="me-1 rounded border border-1 p-1 border-primary"
                 />
-                <span class="align-self-center">Cadastrar Funcionário</span>
+                <span class="align-self-center fw-bold">Cadastrar Funcionário</span>
               </span>
             </button>
           </div>
@@ -113,6 +123,7 @@ watch(clicked, () => {
     </div>
   </div>
   <FormFuncionarioView />
+  <FormAdmissionalView />
 </template>
 
 <style lang="css" scoped>
