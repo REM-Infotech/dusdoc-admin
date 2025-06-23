@@ -45,14 +45,6 @@ async function handleSubmit(e: Event) {
           <BFormGroup id="fieldset-email" label="E-mail" label-for="input-floating-email" floating>
             <BFormInput id="input-floating-email" :state="null" trim placeholder="..." />
           </BFormGroup>
-          <BFormGroup
-            id="fieldset-cod-funcionario"
-            label="Cód. Funcionário"
-            label-for="input-floating-cod-funcionario"
-            floating
-          >
-            <BFormInput id="input-floating-cod-funcionario" :state="null" trim placeholder="..." />
-          </BFormGroup>
           <BFormGroup id="fieldset-cpf" label="CPF" label-for="input-floating-cpf" floating>
             <BFormInput id="input-floating-cpf" :state="null" trim placeholder="..." />
           </BFormGroup>
