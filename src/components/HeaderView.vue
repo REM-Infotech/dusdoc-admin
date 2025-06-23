@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { api } from "@/main";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { computed, ref, watch } from "vue";
@@ -16,6 +17,18 @@ defineProps({
 });
 
 const router = useRouter();
+
+async function handleLogout() {
+  try {
+    await api.get("/auth_admin/logout");
+  } catch {
+    //
+  }
+
+  setTimeout(() => {
+    router.push({ name: "login" });
+  }, 1000);
+}
 
 const expand_sidebar = ref(false);
 const toggler = ref(false);
@@ -55,11 +68,7 @@ watch(toggler, () => {
       </a>
       <div class="d-flex gap-2" role="search">
         <button
-          @click="
-            (e) => {
-              router.push({ name: 'login' });
-            }
-          "
+          @click="handleLogout"
           class="btn btn-outline-danger d-flex justify-content-start align-items-start"
           type="submit"
         >
