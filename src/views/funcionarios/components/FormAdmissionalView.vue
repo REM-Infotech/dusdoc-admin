@@ -13,6 +13,12 @@ const file = ref(null);
 async function handleSubmit(e: Event) {
   e.preventDefault();
 }
+const selected = ref(null);
+
+const exFieldNamesOptions = [
+  { item: "A", name: "Option A" },
+  { item: "B", name: "Option B" },
+];
 </script>
 
 <template>
@@ -26,8 +32,21 @@ async function handleSubmit(e: Event) {
     <form @submit="handleSubmit">
       <div class="row g-1">
         <div class="col-12 d-flex flex-column gap-4">
+          <BFormSelect
+            size="md"
+            v-model="selected"
+            :options="exFieldNamesOptions"
+            value-field="item"
+            text-field="name"
+          >
+            <template #first>
+              <BFormSelectOption :value="null" disabled
+                >-- Selecione um Funcionário --</BFormSelectOption
+              >
+            </template>
+          </BFormSelect>
           <div>
-            <BFormFile size="lg" v-model="file" label="Contrato de Trabalho" label-class="fw-bold">
+            <BFormFile size="md" v-model="file" label="Contrato de Trabalho" label-class="fw-bold">
             </BFormFile>
           </div>
           <BFormGroup
