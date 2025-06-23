@@ -9,15 +9,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BFormFile: typeof import('bootstrap-vue-next/components/BFormFile')['BFormFile']
-    BFormGroup: typeof import('bootstrap-vue-next/components/BFormGroup')['BFormGroup']
-    BFormInput: typeof import('bootstrap-vue-next/components/BFormInput')['BFormInput']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     FooterView: typeof import('./src/components/FooterView.vue')['default']
     HeaderView: typeof import('./src/components/HeaderView.vue')['default']
     IBiBarChartLine: typeof import('~icons/bi/bar-chart-line')['default']
     IBiCalendar2Date: typeof import('~icons/bi/calendar2-date')['default']
     IBiPieChartFill: typeof import('~icons/bi/pie-chart-fill')['default']
-    IBiRobot: typeof import('~icons/bi/robot')['default']
     IBiSpeedometer2: typeof import('~icons/bi/speedometer2')['default']
     MainView: typeof import('./src/components/MainView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
