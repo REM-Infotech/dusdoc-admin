@@ -30,7 +30,6 @@ const io = manager.socket("/admin_funcionarios_informacoes");
 io.connect();
 async function funcionarios_data_req() {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    console.log(dataReturn);
     data.value = dataReturn.data;
   });
 }

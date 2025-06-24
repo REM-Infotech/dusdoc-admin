@@ -13,7 +13,6 @@ io.connect();
 
 onBeforeMount(() => {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    console.log(dataReturn);
     data.value = dataReturn.data;
   });
 });
@@ -28,7 +27,6 @@ io.on("update_data", () => {
 
 function funcionarios_data_req() {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    console.log(dataReturn);
     data.value = dataReturn.data;
   });
 }
