@@ -12,7 +12,6 @@ const Form = reactive({
   prazo: "",
 });
 
-const file = ref(null);
 const overlayAdmissional = ref(false);
 const { cellFuncionario } = storeToRefs(admissionalStore(pinia));
 const opacity = ref(0.18);
@@ -81,7 +80,7 @@ const minDate = () => {
             <div>
               <BFormFile
                 size="md"
-                v-model="file"
+                v-model="Form.contrato"
                 label="Contrato de Trabalho"
                 label-class="fw-bold"
                 accept=".pdf"
@@ -91,6 +90,7 @@ const minDate = () => {
             <BFormGroup
               id="fieldset-prazo"
               label="Data Prazo"
+              v-model="Form.prazo"
               label-for="input-floating-prazo"
               label-class="mb-5"
               floating
