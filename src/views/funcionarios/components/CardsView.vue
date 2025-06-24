@@ -4,8 +4,9 @@ import { computed, ref, watch } from "vue";
 import { pinia } from "@/main";
 import manager from "@/resouces/socketio";
 import funcionariosStore from "@/stores/funcionarios";
-import { faPlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPlus, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { BTooltip } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
@@ -118,8 +119,20 @@ watch(clicked, () => {
                 <th>Nome</th>
                 <th>Código Identificação</th>
                 <th>Email</th>
+                <th>Status</th>
+                <th>Ações</th>
               </tr>
             </thead>
+            <template #column-3="props">
+              <BTooltip>
+                <template #target>
+                  <button class="btn btn-outline-blue-chill" @click="console.log(props.cellData)">
+                    <FontAwesomeIcon :icon="faDownload" />
+                  </button>
+                </template>
+                Realizar Admissão
+              </BTooltip>
+            </template>
           </DataTable>
         </div>
       </div>

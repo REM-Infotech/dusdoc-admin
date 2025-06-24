@@ -13,6 +13,7 @@ declare module 'vue' {
     BFormSelect: typeof import('bootstrap-vue-next/components/BFormSelect')['BFormSelect']
     BFormSelectOption: typeof import('bootstrap-vue-next/components/BFormSelect')['BFormSelectOption']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
+    BTooltip: typeof import('bootstrap-vue-next/components/BTooltip')['BTooltip']
     FooterView: typeof import('./src/components/FooterView.vue')['default']
     HeaderView: typeof import('./src/components/HeaderView.vue')['default']
     IBiBarChartLine: typeof import('~icons/bi/bar-chart-line')['default']
