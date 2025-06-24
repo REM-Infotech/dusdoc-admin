@@ -22,7 +22,32 @@ app.use(bootstrap);
 app.use(pinia);
 app.use(router);
 
-export const api = axios.create();
+export const api = axios.create({
+  withCredentials: true,
+  withXSRFToken: true,
+  xsrfCookieName: "X-Xsrf-Token",
+  xsrfHeaderName: "X-Xsrf-Token",
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
+interface ResponseError {
+  response?: {
+    status?: number;
+  };
+}
+
+api.interceptors.response.use(
+  (response) => response,
+  (error: ResponseError) => {
+    if (error.response && (error.response.status === 401 || error.response.status == 422)) {
+      router.push({ name: "login" });
+      alert("Sessão expirada. Faça login novamente.");
+    }
+    return Promise.reject(error);
+  },
+);
 export const mainSocket = manager.socket("/");
 
 app.mount("#app");

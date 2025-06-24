@@ -18,7 +18,9 @@ const router = createRouter({
     {
       path: "/dashboard",
       name: "dashboard",
-      component: () => import("@/views/dashboard/DashboardView.vue"),
+      redirect: {
+        name: "funcionarios",
+      },
       meta: {
         requireAuth: true,
       },
@@ -31,22 +33,22 @@ const router = createRouter({
         requireAuth: true,
       },
     },
-    {
-      path: "/executions",
-      name: "executions",
-      component: () => import("@/views/EmptyView.vue"),
-      meta: {
-        requireAuth: true,
-      },
-    },
-    {
-      path: "/scheduled",
-      name: "scheduled",
-      component: () => import("@/views/EmptyView.vue"),
-      meta: {
-        requireAuth: true,
-      },
-    },
+    // {
+    //   path: "/executions",
+    //   name: "executions",
+    //   component: () => import("@/views/EmptyView.vue"),
+    //   meta: {
+    //     requireAuth: true,
+    //   },
+    // },
+    // {
+    //   path: "/scheduled",
+    //   name: "scheduled",
+    //   component: () => import("@/views/EmptyView.vue"),
+    //   meta: {
+    //     requireAuth: true,
+    //   },
+    // },
   ],
 });
 
