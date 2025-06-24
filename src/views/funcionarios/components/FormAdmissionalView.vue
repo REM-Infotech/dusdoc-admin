@@ -3,7 +3,7 @@ import { pinia } from "@/main";
 import admissionalStore from "@/stores/admissional";
 import { BButton, BFormFile, BFormGroup, BFormInput, BModal } from "bootstrap-vue-next";
 import { storeToRefs } from "pinia";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
 const file = ref(null);
 
@@ -18,10 +18,6 @@ const exFieldNamesOptions = [
   { item: "A", name: "Option A" },
   { item: "B", name: "Option B" },
 ];
-
-watch(cellFuncionario, (newData) => {
-  console.log(newData);
-});
 </script>
 
 <template>
@@ -29,7 +25,8 @@ watch(cellFuncionario, (newData) => {
     size="lg"
     id="FormAdmissional"
     centered
-    title="Admissão de Funcionário"
+    @hide="cellFuncionario = {}"
+    :title="`Admissão Funcionário -- ${cellFuncionario[0]} --`"
     footer-class="d-flex"
   >
     <form @submit="handleSubmit">
