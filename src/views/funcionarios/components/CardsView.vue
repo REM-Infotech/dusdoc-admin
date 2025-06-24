@@ -29,8 +29,12 @@ function classListItem(item: string) {
 const io = manager.socket("/admin_funcionarios_informacoes");
 io.connect();
 async function funcionarios_data_req() {
-  io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    data.value = dataReturn.data;
+  io.emit("listagem_funcionarios", (dataReturn: Record<string, string>[]) => {
+    // Converte cada objeto em um array de strings (string[][])
+    const formatted = Array.isArray(dataReturn)
+      ? dataReturn.map((item) => Object.values(item).map(String))
+      : [];
+    data.value = formatted;
   });
 }
 
@@ -80,7 +84,7 @@ watch(clicked, () => {
                 <span class="align-self-center fw-bold">Recarregar Usuários</span>
               </span>
             </button>
-            <button v-b-modal.FormAdmissional class="btn btn-sm btn-outline-blue-chill">
+            <!-- <button v-b-modal.FormAdmissional class="btn btn-sm btn-outline-blue-chill">
               <span class="d-flex allign-items-center">
                 <FontAwesomeIcon
                   :icon="faPlus"
@@ -88,7 +92,7 @@ watch(clicked, () => {
                 />
                 <span class="align-self-center fw-bold">Nova Admissão</span>
               </span>
-            </button>
+            </button> -->
             <button v-b-modal.FormFuncionario class="btn btn-sm btn-outline-primary">
               <span class="d-flex allign-items-center">
                 <FontAwesomeIcon

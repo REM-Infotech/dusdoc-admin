@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { api } from "@/main";
+import { isAxiosError } from "axios";
 import { BButton, BFormGroup, BFormInput, BModal } from "bootstrap-vue-next";
 import { reactive, watch } from "vue";
 
@@ -45,7 +46,12 @@ async function handleSubmit(e: Event) {
   try {
     await api.post("/forms/funcionario/cadastro", Form);
   } catch (err) {
-    console.error(err);
+    if (isAxiosError(err)) {
+      if (err.response?.data && err.response.data.message) {
+        const message = err.response.data.message;
+        alert(message);
+      }
+    }
   }
 }
 </script>
