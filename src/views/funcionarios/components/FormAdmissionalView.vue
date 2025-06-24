@@ -25,7 +25,7 @@ const exFieldNamesOptions = [
     size="lg"
     id="FormAdmissional"
     centered
-    @hide="cellFuncionario = {}"
+    @hide="cellFuncionario = ['']"
     :title="`Admissão Funcionário -- ${cellFuncionario[0]} --`"
     footer-class="d-flex"
   >

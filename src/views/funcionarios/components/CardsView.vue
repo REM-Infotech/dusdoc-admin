@@ -22,7 +22,6 @@ const clicked = ref(false);
 const selectedItem = ref("");
 const io = manager.socket("/admin_funcionarios_informacoes");
 const { show: showAdmissional } = useModal("FormAdmissional");
-const selectedAdmissional = ref<Record<string, string>>({});
 
 const computedList = computed(() => {
   return list.filter((item) => item.msg.toLowerCase().includes(query.value.toLowerCase()));
@@ -30,10 +29,6 @@ const computedList = computed(() => {
 
 onBeforeMount(() => {
   io.connect();
-});
-
-watch(selectedAdmissional, (newValue) => {
-  cellFuncionario.value = newValue;
 });
 
 async function funcionarios_data_req() {
@@ -49,7 +44,7 @@ function classListItem(item: string) {
   return selectedItem.value === item ? "list-group-item active" : "list-group-item";
 }
 
-function showModalAdmissional(props: Record<string, string>) {
+function showModalAdmissional(props: string[]) {
   cellFuncionario.value = props;
 
   showAdmissional();

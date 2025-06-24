@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 const admissionalStore = defineStore("admissionalStore", () => {
-  const cellFuncionario = ref<Record<string, string>>({});
+  const cellFuncionario = ref<string[]>([]);
 
   return { cellFuncionario };
 });
