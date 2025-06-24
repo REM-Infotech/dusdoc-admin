@@ -13,7 +13,10 @@ io.connect();
 
 onBeforeMount(() => {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    data.value = dataReturn.data;
+    const formatted = Array.isArray(dataReturn)
+      ? dataReturn.map((item) => Object.values(item).map(String))
+      : [];
+    data.value = formatted;
   });
 });
 
