@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, onBeforeMount, ref, watch } from "vue";
 
 import { pinia } from "@/main";
 import manager from "@/resouces/socketio";
+import admissionalStore from "@/stores/admissional";
 import funcionariosStore from "@/stores/funcionarios";
-import { faDownload, faPlus, faRefresh, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { faPenNib, faPlus, faRefresh, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { BTooltip } from "bootstrap-vue-next";
+import { BTooltip, useModal } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
@@ -14,34 +15,51 @@ import FormAdmissionalView from "./FormAdmissionalView.vue";
 import FormFuncionarioView from "./FormFuncionarioView.vue";
 DataTable.use(DataTablesCore);
 
-const { data } = storeToRefs(funcionariosStore(pinia));
-const selectedItem = ref("");
-const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg: "Empresa" }];
-
+const { dataFuncionarios } = storeToRefs(funcionariosStore(pinia));
+const { cellFuncionario } = storeToRefs(admissionalStore(pinia));
 const query = ref("");
 const clicked = ref(false);
+const selectedItem = ref("");
+const io = manager.socket("/admin_funcionarios_informacoes");
+const { show: showAdmissional } = useModal("FormAdmissional");
+const selectedAdmissional = ref<Record<string, string>>({});
+
 const computedList = computed(() => {
   return list.filter((item) => item.msg.toLowerCase().includes(query.value.toLowerCase()));
 });
 
-function classListItem(item: string) {
-  return selectedItem.value === item ? "list-group-item active" : "list-group-item";
-}
-const io = manager.socket("/admin_funcionarios_informacoes");
-io.connect();
+onBeforeMount(() => {
+  io.connect();
+});
+
+watch(selectedAdmissional, (newValue) => {
+  cellFuncionario.value = newValue;
+});
+
 async function funcionarios_data_req() {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string>[]) => {
-    // Converte cada objeto em um array de strings (string[][])
     const formatted = Array.isArray(dataReturn)
       ? dataReturn.map((item) => Object.values(item).map(String))
       : [];
-    data.value = formatted;
+    dataFuncionarios.value = formatted;
   });
+}
+
+function classListItem(item: string) {
+  return selectedItem.value === item ? "list-group-item active" : "list-group-item";
+}
+
+function showModalAdmissional(props: Record<string, string>) {
+  cellFuncionario.value = props;
+
+  showAdmissional();
 }
 
 watch(clicked, () => {
   funcionarios_data_req();
 });
+
+const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg: "Empresa" }];
 </script>
 
 <template>
@@ -107,7 +125,7 @@ watch(clicked, () => {
         </div>
         <div class="card-body">
           <DataTable
-            :data="data"
+            :data="dataFuncionarios"
             class="display table table-striped table-hover"
             :options="{
               pageLength: 10,
@@ -123,11 +141,11 @@ watch(clicked, () => {
                 <th>Ações</th>
               </tr>
             </thead>
-            <template #column-3="props">
+            <template #column-3>
               <div class="d-flex">
                 <BTooltip>
                   <template #target>
-                    <button class="btn btn-warning" @click="console.log(props.cellData)">
+                    <button class="btn btn-warning">
                       <FontAwesomeIcon :icon="faWarning" />
                     </button>
                   </template>
@@ -138,8 +156,11 @@ watch(clicked, () => {
             <template #column-4="props">
               <BTooltip>
                 <template #target>
-                  <button class="btn btn-outline-blue-chill" @click="console.log(props.cellData)">
-                    <FontAwesomeIcon :icon="faDownload" />
+                  <button
+                    class="btn btn-outline-blue-chill"
+                    @click="showModalAdmissional(props.rowData)"
+                  >
+                    <FontAwesomeIcon :icon="faPenNib" />
                   </button>
                 </template>
                 Realizar Admissão

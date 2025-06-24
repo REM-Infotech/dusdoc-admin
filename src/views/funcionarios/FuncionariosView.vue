@@ -6,22 +6,24 @@ import { storeToRefs } from "pinia";
 import { onBeforeMount, onUnmounted } from "vue";
 import CardsView from "./components/CardsView.vue";
 
-const { data } = storeToRefs(funcionariosStore(pinia));
+const { dataFuncionarios } = storeToRefs(funcionariosStore(pinia));
 
 const io = manager.socket("/admin_funcionarios_informacoes");
 io.connect();
+
+onUnmounted(() => {
+  dataFuncionarios.value = [];
+});
 
 onBeforeMount(() => {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
     const formatted = Array.isArray(dataReturn)
       ? dataReturn.map((item) => Object.values(item).map(String))
       : [];
-    data.value = formatted;
-  });
-});
 
-onUnmounted(() => {
-  data.value = [];
+    console.log(formatted);
+    dataFuncionarios.value = formatted;
+  });
 });
 
 io.on("update_data", () => {
@@ -30,7 +32,7 @@ io.on("update_data", () => {
 
 function funcionarios_data_req() {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    data.value = dataReturn.data;
+    dataFuncionarios.value = dataReturn.data;
   });
 }
 </script>

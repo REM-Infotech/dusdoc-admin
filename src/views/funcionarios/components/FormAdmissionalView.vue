@@ -1,14 +1,13 @@
 <script setup lang="ts">
+import { pinia } from "@/main";
+import admissionalStore from "@/stores/admissional";
 import { BButton, BFormFile, BFormGroup, BFormInput, BModal } from "bootstrap-vue-next";
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { ref, watch } from "vue";
 
 const file = ref(null);
 
-// const src_file = computed(() => {
-//   if (!file.value) return withouImage;
-//   if (typeof file.value === "string") return file.value;
-//   return URL.createObjectURL(file.value);
-// });
+const { cellFuncionario } = storeToRefs(admissionalStore(pinia));
 
 async function handleSubmit(e: Event) {
   e.preventDefault();
@@ -19,6 +18,10 @@ const exFieldNamesOptions = [
   { item: "A", name: "Option A" },
   { item: "B", name: "Option B" },
 ];
+
+watch(cellFuncionario, (newData) => {
+  console.log(newData);
+});
 </script>
 
 <template>
@@ -40,9 +43,9 @@ const exFieldNamesOptions = [
             text-field="name"
           >
             <template #first>
-              <BFormSelectOption :value="null" disabled
-                >-- Selecione um Funcionário --</BFormSelectOption
-              >
+              <BFormSelectOption :value="null" disabled>
+                -- Selecione um Funcionário --
+              </BFormSelectOption>
             </template>
           </BFormSelect>
           <div>

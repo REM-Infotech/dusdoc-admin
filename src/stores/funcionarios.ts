@@ -2,9 +2,9 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 const funcionariosStore = defineStore("funcionariosStore", () => {
-  const data = ref<string[][]>([]);
+  const dataFuncionarios = ref<string[][]>([]);
 
-  return { data };
+  return { dataFuncionarios };
 });
 
 export default funcionariosStore;
