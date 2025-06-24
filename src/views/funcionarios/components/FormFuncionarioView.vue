@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { api } from "@/main";
 import { isAxiosError } from "axios";
-import { BButton, BFormGroup, BFormInput, BModal } from "bootstrap-vue-next";
-import { reactive, watch } from "vue";
-
+import { BButton, BFormGroup, BFormInput, BModal, BOverlay, useModal } from "bootstrap-vue-next";
+import { reactive, ref, watch } from "vue";
+const { hide: HideModal } = useModal("FormFuncionario");
 const Form = reactive({
   nome: "",
   email: "",
@@ -12,6 +12,8 @@ const Form = reactive({
   cargo: "",
   empresa: "",
 });
+const opacity = ref(0.18);
+const overlayCadastroFuncionario = ref(false);
 
 watch(
   () => ({ ...Form }),
@@ -42,17 +44,22 @@ watch(
 
 async function handleSubmit(e: Event) {
   e.preventDefault();
-
+  overlayCadastroFuncionario.value = true;
+  let message = "Erro ao cadastrar funcionário!";
   try {
-    await api.post("/forms/funcionario/cadastro", Form);
+    const response = await api.post("/forms/funcionario/cadastro", Form);
+
+    message = response.data.message || "Erro ao cadastrar funcionário";
   } catch (err) {
     if (isAxiosError(err)) {
       if (err.response?.data && err.response.data.message) {
-        const message = err.response.data.message;
-        alert(message);
+        message = err.response.data.message;
       }
     }
   }
+  alert(message);
+  HideModal();
+  overlayCadastroFuncionario.value = false;
 }
 </script>
 
@@ -66,84 +73,86 @@ async function handleSubmit(e: Event) {
     as="form"
     no-footer
   >
-    <form @submit="handleSubmit">
-      <div class="d-flex flex-column gap-4">
-        <BFormGroup id="fieldset-nome" label="Nome" label-for="input-floating-nome" floating>
-          <BFormInput
-            v-model="Form.nome"
-            id="input-floating-nome"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-        <BFormGroup id="fieldset-email" label="E-mail" label-for="input-floating-email" floating>
-          <BFormInput
-            v-model="Form.email"
-            id="input-floating-email"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-        <BFormGroup id="fieldset-cpf" label="CPF" label-for="input-floating-cpf" floating>
-          <BFormInput
-            v-model="Form.cpf"
-            id="input-floating-cpf"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-        <BFormGroup
-          id="fieldset-departamento"
-          label="Setor/Departamento"
-          label-for="input-floating-departamento"
-          floating
-        >
-          <BFormInput
-            v-model="Form.departamento"
-            id="input-floating-departamento"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-        <BFormGroup
-          id="fieldset-cargo"
-          label="Cargo/Função"
-          label-for="input-floating-cargo"
-          floating
-        >
-          <BFormInput
-            v-model="Form.cargo"
-            id="input-floating-cargo"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-        <BFormGroup
-          id="fieldset-empresa"
-          label="Empresa"
-          label-for="input-floating-empresa"
-          floating
-        >
-          <BFormInput
-            v-model="Form.empresa"
-            id="input-floating-empresa"
-            :state="null"
-            trim
-            placeholder="..."
-          />
-        </BFormGroup>
-      </div>
-      <hr />
-      <div class="d-flex flex-column">
-        <BButton type="submit" variant="success" size="lg">
-          <strong> Salvar </strong>
-        </BButton>
-      </div>
-    </form>
+    <BOverlay class="p-3" :show="overlayCadastroFuncionario" :opacity="opacity" rounded="md">
+      <form @submit="handleSubmit">
+        <div class="d-flex flex-column gap-4">
+          <BFormGroup id="fieldset-nome" label="Nome" label-for="input-floating-nome" floating>
+            <BFormInput
+              v-model="Form.nome"
+              id="input-floating-nome"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+          <BFormGroup id="fieldset-email" label="E-mail" label-for="input-floating-email" floating>
+            <BFormInput
+              v-model="Form.email"
+              id="input-floating-email"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+          <BFormGroup id="fieldset-cpf" label="CPF" label-for="input-floating-cpf" floating>
+            <BFormInput
+              v-model="Form.cpf"
+              id="input-floating-cpf"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+          <BFormGroup
+            id="fieldset-departamento"
+            label="Setor/Departamento"
+            label-for="input-floating-departamento"
+            floating
+          >
+            <BFormInput
+              v-model="Form.departamento"
+              id="input-floating-departamento"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+          <BFormGroup
+            id="fieldset-cargo"
+            label="Cargo/Função"
+            label-for="input-floating-cargo"
+            floating
+          >
+            <BFormInput
+              v-model="Form.cargo"
+              id="input-floating-cargo"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+          <BFormGroup
+            id="fieldset-empresa"
+            label="Empresa"
+            label-for="input-floating-empresa"
+            floating
+          >
+            <BFormInput
+              v-model="Form.empresa"
+              id="input-floating-empresa"
+              :state="null"
+              trim
+              placeholder="..."
+            />
+          </BFormGroup>
+        </div>
+        <hr />
+        <div class="d-flex flex-column">
+          <BButton type="submit" variant="success" size="lg">
+            <strong> Salvar </strong>
+          </BButton>
+        </div>
+      </form>
+    </BOverlay>
   </BModal>
 </template>

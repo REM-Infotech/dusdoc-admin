@@ -42,7 +42,7 @@ function navClass(name: string) {
     @transitionend="inTransition = !inTransition"
   >
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item border-bottom">
+      <!-- <li class="nav-item border-bottom">
         <RouterLink :to="{ name: 'dashboard' }" :class="navClass('dashboard')">
           <IBiSpeedometer2
             class="me-2"
@@ -53,7 +53,7 @@ function navClass(name: string) {
             Dashboard
           </span>
         </RouterLink>
-      </li>
+      </li> -->
       <li class="nav-item border-bottom">
         <RouterLink :to="{ name: 'funcionarios' }" :class="navClass('funcionarios')">
           <FontAwesomeIcon
@@ -67,7 +67,7 @@ function navClass(name: string) {
           </span>
         </RouterLink>
       </li>
-      <li class="nav-item border-bottom">
+      <!-- <li class="nav-item border-bottom">
         <RouterLink :to="{ name: 'executions' }" :class="navClass('executions')">
           <IBiBarChartLine
             class="me-2"
@@ -86,7 +86,7 @@ function navClass(name: string) {
           />
           <span class="fw-bold sidebar-text align-middle" title="Agendamentos"> Agendamentos </span>
         </RouterLink>
-      </li>
+      </li> -->
     </ul>
     <hr />
     <div class="dropdown ms-2">

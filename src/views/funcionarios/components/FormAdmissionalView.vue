@@ -12,8 +12,10 @@ const { cellFuncionario } = storeToRefs(admissionalStore(pinia));
 async function handleSubmit(e: Event) {
   e.preventDefault();
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const selected = ref(null);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const exFieldNamesOptions = [
   { item: "A", name: "Option A" },
   { item: "B", name: "Option B" },
@@ -32,7 +34,7 @@ const exFieldNamesOptions = [
     <form @submit="handleSubmit">
       <div class="row g-1">
         <div class="col-12 d-flex flex-column gap-4">
-          <BFormSelect
+          <!-- <BFormSelect
             size="md"
             v-model="selected"
             :options="exFieldNamesOptions"
@@ -44,7 +46,7 @@ const exFieldNamesOptions = [
                 -- Selecione um Funcionário --
               </BFormSelectOption>
             </template>
-          </BFormSelect>
+          </BFormSelect> -->
           <div>
             <BFormFile size="md" v-model="file" label="Contrato de Trabalho" label-class="fw-bold">
             </BFormFile>
