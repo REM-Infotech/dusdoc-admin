@@ -43,9 +43,9 @@ async function handleSubmit(e: Event) {
   e.preventDefault();
 
   try {
-    await api.post("/cadastro/funcionario", Form);
-  } catch {
-    //
+    await api.post("/forms/funcionario/cadastro", Form);
+  } catch (err) {
+    console.error(err);
   }
 }
 </script>
@@ -57,6 +57,8 @@ async function handleSubmit(e: Event) {
     centered
     title="Cadastro de Funcionário"
     footer-class="d-flex"
+    as="form"
+    no-footer
   >
     <form @submit="handleSubmit">
       <div class="d-flex flex-column gap-4">
@@ -125,10 +127,12 @@ async function handleSubmit(e: Event) {
           />
         </BFormGroup>
       </div>
+      <hr />
+      <div class="d-flex flex-column">
+        <BButton type="submit" variant="success" size="lg">
+          <strong> Salvar </strong>
+        </BButton>
+      </div>
     </form>
-
-    <template #footer>
-      <BButton type="submit" variant="success" size="lg"> Salvar </BButton>
-    </template>
   </BModal>
 </template>
