@@ -13,54 +13,30 @@ const Form = reactive({
 });
 
 watch(
-  () => Form.cpf,
-  (newValue) => {
-    Form.cpf = newValue
-      .replace(/[^\d]/g, "")
-      .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  () => ({ ...Form }),
+  (newForm) => {
+    if (newForm.cpf) {
+      Form.cpf = newForm.cpf
+        .replace(/[^\d]/g, "")
+        .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+    if (newForm.nome) {
+      Form.nome = newForm.nome.toUpperCase();
+    }
+    if (newForm.email) {
+      Form.email = newForm.email.toLowerCase();
+    }
+    if (newForm.setor) {
+      Form.setor = newForm.setor.toUpperCase();
+    }
+    if (newForm.cargo) {
+      Form.cargo = newForm.cargo.toUpperCase();
+    }
+    if (newForm.empresa) {
+      Form.empresa = newForm.empresa.toUpperCase();
+    }
   },
-);
-
-watch(
-  () => Form.nome,
-  (newValue) => {
-    Form.nome = newValue.toUpperCase();
-  },
-);
-
-watch(
-  () => Form.email,
-  (newValue) => {
-    Form.email = newValue.toLowerCase();
-  },
-);
-
-watch(
-  () => Form.email,
-  (newValue) => {
-    Form.email = newValue.toLowerCase();
-  },
-);
-
-watch(
-  () => Form.setor,
-  (newValue) => {
-    Form.setor = newValue.toUpperCase();
-  },
-);
-
-watch(
-  () => Form.cargo,
-  (newValue) => {
-    Form.cargo = newValue.toUpperCase();
-  },
-);
-
-watch(
-  () => Form.empresa,
-  (newValue) => {
-    Form.empresa = newValue.toUpperCase();
-  },
+  { deep: true },
 );
 
 async function handleSubmit(e: Event) {
