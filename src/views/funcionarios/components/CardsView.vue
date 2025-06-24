@@ -140,7 +140,7 @@ const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg
               <div class="d-flex">
                 <BTooltip>
                   <template #target>
-                    <button class="btn btn-danger">
+                    <button class="btn btn-outline-danger2">
                       <FontAwesomeIcon :icon="faWarning" />
                     </button>
                   </template>
