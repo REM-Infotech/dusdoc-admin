@@ -7,7 +7,7 @@ const Form = reactive({
   nome: "",
   email: "",
   cpf: "",
-  setor: "",
+  departamento: "",
   cargo: "",
   empresa: "",
 });
@@ -26,8 +26,8 @@ watch(
     if (newForm.email) {
       Form.email = newForm.email.toLowerCase();
     }
-    if (newForm.setor) {
-      Form.setor = newForm.setor.toUpperCase();
+    if (newForm.departamento) {
+      Form.departamento = newForm.departamento.toUpperCase();
     }
     if (newForm.cargo) {
       Form.cargo = newForm.cargo.toUpperCase();
@@ -89,10 +89,15 @@ async function handleSubmit(e: Event) {
             placeholder="..."
           />
         </BFormGroup>
-        <BFormGroup id="fieldset-setor" label="Setor" label-for="input-floating-setor" floating>
+        <BFormGroup
+          id="fieldset-departamento"
+          label="Setor/Departamento"
+          label-for="input-floating-departamento"
+          floating
+        >
           <BFormInput
-            v-model="Form.setor"
-            id="input-floating-setor"
+            v-model="Form.departamento"
+            id="input-floating-departamento"
             :state="null"
             trim
             placeholder="..."
