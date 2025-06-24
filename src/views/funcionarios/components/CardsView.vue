@@ -11,8 +11,8 @@ import { BTooltip, useModal } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
-import FormAdmissionalView from "./FormAdmissionalView.vue";
-import FormFuncionarioView from "./FormFuncionarioView.vue";
+import FormAdmissionalView from "./forms/FormAdmissionalView.vue";
+import FormFuncionarioView from "./forms/FormFuncionarioView.vue";
 DataTable.use(DataTablesCore);
 
 const { dataFuncionarios } = storeToRefs(funcionariosStore(pinia));
