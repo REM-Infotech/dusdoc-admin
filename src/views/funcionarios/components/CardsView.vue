@@ -58,7 +58,13 @@ function showModalAdmissional(props: string[]) {
   showAdmissional();
 }
 
-function LiberarAcessoApp() {
+function LiberarAcessoApp(funcionario_id: string) {
+  io.emit("liberar_acesso", {
+    data: {
+      funcionario_id: funcionario_id,
+    },
+  });
+
   alert("Acesso Liberado! E-mail com instruções enviado para o funcionário");
 
   router.push({ name: "funcionarios" });
@@ -187,7 +193,10 @@ DataTable.use(DataTablesCore);
               </BTooltip>
               <BTooltip>
                 <template #target>
-                  <button class="btn btn-outline-blue-chill" @click="LiberarAcessoApp()">
+                  <button
+                    class="btn btn-outline-blue-chill"
+                    @click="LiberarAcessoApp(props.rowData[0])"
+                  >
                     <FontAwesomeIcon :icon="faPlusMinus" />
                   </button>
                 </template>
