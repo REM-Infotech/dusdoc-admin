@@ -75,6 +75,7 @@ async function LiberarAcessoApp(funcionario_id: string) {
   }
 
   alert(message);
+  funcionarios_data_req();
 
   router.push({ name: "funcionarios" });
 }
