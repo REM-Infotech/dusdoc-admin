@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { pinia } from "@/main";
+import { api, pinia } from "@/main";
 import manager from "@/resouces/socketio";
 import admissionalStore from "@/stores/admissional";
 import funcionariosStore from "@/stores/funcionarios";
@@ -12,6 +12,7 @@ import {
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { isAxiosError } from "axios";
 import { BTooltip, useModal } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
@@ -58,14 +59,22 @@ function showModalAdmissional(props: string[]) {
   showAdmissional();
 }
 
-function LiberarAcessoApp(funcionario_id: string) {
-  io.emit("liberar_acesso", {
-    data: {
-      funcionario_id: funcionario_id,
-    },
-  });
+async function LiberarAcessoApp(funcionario_id: string) {
+  let message = "Erro ao liberar acesso";
 
-  alert("Acesso Liberado! E-mail com instruções enviado para o funcionário");
+  try {
+    const resp = await api.post("/admin/acesso_app", {
+      id: funcionario_id,
+    });
+
+    message = resp.data.message;
+  } catch (err) {
+    if (isAxiosError(err) && err.response && err.response.data.message) {
+      message = err.response.data.message;
+    }
+  }
+
+  alert(message);
 
   router.push({ name: "funcionarios" });
 }
