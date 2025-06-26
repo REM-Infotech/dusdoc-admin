@@ -16,14 +16,7 @@ onUnmounted(() => {
 });
 
 onBeforeMount(() => {
-  io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    const formatted = Array.isArray(dataReturn)
-      ? dataReturn.map((item) => Object.values(item).map(String))
-      : [];
-
-    console.log(formatted);
-    dataFuncionarios.value = formatted;
-  });
+  funcionarios_data_req();
 });
 
 io.on("update_data", () => {
@@ -32,7 +25,10 @@ io.on("update_data", () => {
 
 function funcionarios_data_req() {
   io.emit("listagem_funcionarios", (dataReturn: Record<string, string[][]>) => {
-    dataFuncionarios.value = dataReturn.data;
+    const formatted = Array.isArray(dataReturn)
+      ? dataReturn.map((item) => Object.values(item).map(String))
+      : [];
+    dataFuncionarios.value = formatted;
   });
 }
 </script>

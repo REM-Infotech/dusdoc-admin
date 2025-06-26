@@ -5,7 +5,13 @@ import { pinia } from "@/main";
 import manager from "@/resouces/socketio";
 import admissionalStore from "@/stores/admissional";
 import funcionariosStore from "@/stores/funcionarios";
-import { faPenNib, faPlus, faRefresh, faWarning } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHourglass,
+  faPenNib,
+  faPlus,
+  faRefresh,
+  faWarning,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { BTooltip, useModal } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
@@ -129,6 +135,9 @@ const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg
           >
             <thead>
               <tr>
+                <th>
+                  <strong> # </strong>
+                </th>
                 <th>Nome</th>
                 <th>Código Identificação</th>
                 <th>Email</th>
@@ -136,9 +145,9 @@ const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg
                 <th>Ações</th>
               </tr>
             </thead>
-            <template #column-3>
+            <template #column-4="props">
               <div class="d-flex">
-                <BTooltip>
+                <BTooltip v-if="props.rowData[4] === 'PENDENTE'">
                   <template #target>
                     <button class="btn btn-outline-danger2">
                       <FontAwesomeIcon :icon="faWarning" />
@@ -146,10 +155,18 @@ const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg
                   </template>
                   Admissão Pendente
                 </BTooltip>
+                <BTooltip v-if="props.rowData[4] === 'EM ANDAMENTO'">
+                  <template #target>
+                    <button class="btn btn-outline-secondary2">
+                      <FontAwesomeIcon :icon="faHourglass" />
+                    </button>
+                  </template>
+                  Admissão em Andamento
+                </BTooltip>
               </div>
             </template>
-            <template #column-4="props">
-              <BTooltip>
+            <template #column-5="props">
+              <BTooltip v-if="props.rowData[4] === 'PENDENTE'">
                 <template #target>
                   <button
                     class="btn btn-outline-blue-chill"

@@ -10,6 +10,7 @@ const { hide: HideModal } = useModal("FormAdmissional");
 const Form = reactive({
   contrato: null,
   prazo: "",
+  funcionario_id: "",
 });
 
 const overlayAdmissional = ref(false);
@@ -27,6 +28,9 @@ const exFieldNamesOptions = [
 
 async function handleSubmit(e: Event) {
   e.preventDefault();
+
+  Form.funcionario_id = cellFuncionario.value[0];
+
   overlayAdmissional.value = true;
   let message = "Erro ao cadastrar funcionário!";
   try {
@@ -56,7 +60,7 @@ const minDate = () => {
     id="FormAdmissional"
     centered
     @hide="cellFuncionario = ['']"
-    :title="`Admissão Funcionário -- ${cellFuncionario[0]} --`"
+    :title="`Admissão Funcionário -- ${cellFuncionario[1]} --`"
     footer-class="d-flex"
     no-footer
   >
@@ -84,6 +88,7 @@ const minDate = () => {
                 label="Contrato de Trabalho"
                 label-class="fw-bold"
                 accept=".pdf"
+                required
               >
               </BFormFile>
             </div>
@@ -103,6 +108,7 @@ const minDate = () => {
                 placeholder="..."
                 :min="minDate()"
                 v-model="Form.prazo"
+                required
               />
             </BFormGroup>
           </div>
