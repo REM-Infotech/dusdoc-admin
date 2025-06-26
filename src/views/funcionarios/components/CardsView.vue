@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, watch } from "vue";
-
 import { pinia } from "@/main";
 import manager from "@/resouces/socketio";
 import admissionalStore from "@/stores/admissional";
@@ -9,6 +7,7 @@ import {
   faHourglass,
   faPenNib,
   faPlus,
+  faPlusMinus,
   faRefresh,
   faWarning,
 } from "@fortawesome/free-solid-svg-icons";
@@ -17,9 +16,12 @@ import { BTooltip, useModal } from "bootstrap-vue-next";
 import DataTablesCore from "datatables.net-bs5";
 import DataTable from "datatables.net-vue3";
 import { storeToRefs } from "pinia";
+import { computed, onBeforeMount, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import FormAdmissionalView from "./forms/FormAdmissionalView.vue";
 import FormFuncionarioView from "./forms/FormFuncionarioView.vue";
-DataTable.use(DataTablesCore);
+
+const router = useRouter();
 
 const { dataFuncionarios } = storeToRefs(funcionariosStore(pinia));
 const { cellFuncionario } = storeToRefs(admissionalStore(pinia));
@@ -28,7 +30,7 @@ const clicked = ref(false);
 const selectedItem = ref("");
 const io = manager.socket("/admin_funcionarios_informacoes");
 const { show: showAdmissional } = useModal("FormAdmissional");
-
+const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg: "Empresa" }];
 const computedList = computed(() => {
   return list.filter((item) => item.msg.toLowerCase().includes(query.value.toLowerCase()));
 });
@@ -56,11 +58,17 @@ function showModalAdmissional(props: string[]) {
   showAdmissional();
 }
 
+function LiberarAcessoApp() {
+  alert("Acesso Liberado! E-mail com instruções enviado para o funcionário");
+
+  router.push({ name: "funcionarios" });
+}
+
 watch(clicked, () => {
   funcionarios_data_req();
 });
 
-const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg: "Empresa" }];
+DataTable.use(DataTablesCore);
 </script>
 
 <template>
@@ -176,6 +184,14 @@ const list = [{ msg: "Departamento" }, { msg: "Cargo" }, { msg: "Setor" }, { msg
                   </button>
                 </template>
                 Realizar Admissão
+              </BTooltip>
+              <BTooltip>
+                <template #target>
+                  <button class="btn btn-outline-blue-chill" @click="LiberarAcessoApp()">
+                    <FontAwesomeIcon :icon="faPlusMinus" />
+                  </button>
+                </template>
+                Liberar acesso App
               </BTooltip>
             </template>
           </DataTable>

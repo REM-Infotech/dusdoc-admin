@@ -5,7 +5,8 @@ import { isAxiosError } from "axios";
 import { BButton, BFormFile, BFormGroup, BFormInput, BModal, useModal } from "bootstrap-vue-next";
 import { storeToRefs } from "pinia";
 import { reactive, ref } from "vue";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const { hide: HideModal } = useModal("FormAdmissional");
 const Form = reactive({
   contrato: null,
@@ -47,6 +48,8 @@ async function handleSubmit(e: Event) {
   alert(message);
   HideModal();
   overlayAdmissional.value = false;
+
+  router.push({ name: "funcionarios" });
 }
 
 const minDate = () => {
