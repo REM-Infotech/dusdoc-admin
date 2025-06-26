@@ -43,7 +43,6 @@ api.interceptors.response.use(
   (error: ResponseError) => {
     if (error.response && (error.response.status === 401 || error.response.status == 422)) {
       router.push({ name: "login" });
-      alert("Sessão expirada. Faça login novamente.");
     }
     return Promise.reject(error);
   },

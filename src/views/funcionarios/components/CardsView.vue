@@ -189,28 +189,30 @@ DataTable.use(DataTablesCore);
               </div>
             </template>
             <template #column-5="props">
-              <BTooltip v-if="props.rowData[4] === 'PENDENTE'">
-                <template #target>
-                  <button
-                    class="btn btn-outline-blue-chill"
-                    @click="showModalAdmissional(props.rowData)"
-                  >
-                    <FontAwesomeIcon :icon="faPenNib" />
-                  </button>
-                </template>
-                Realizar Admissão
-              </BTooltip>
-              <BTooltip>
-                <template #target>
-                  <button
-                    class="btn btn-outline-blue-chill"
-                    @click="LiberarAcessoApp(props.rowData[0])"
-                  >
-                    <FontAwesomeIcon :icon="faPlusMinus" />
-                  </button>
-                </template>
-                Liberar acesso App
-              </BTooltip>
+              <div class="d-flex gap-2">
+                <BTooltip v-if="props.rowData[4] === 'PENDENTE'">
+                  <template #target>
+                    <button
+                      class="btn btn-outline-blue-chill"
+                      @click="showModalAdmissional(props.rowData)"
+                    >
+                      <FontAwesomeIcon :icon="faPenNib" />
+                    </button>
+                  </template>
+                  Realizar Admissão
+                </BTooltip>
+                <BTooltip>
+                  <template #target>
+                    <button
+                      class="btn btn-outline-blue-chill"
+                      @click="LiberarAcessoApp(props.rowData[0])"
+                    >
+                      <FontAwesomeIcon :icon="faPlusMinus" />
+                    </button>
+                  </template>
+                  Liberar acesso App
+                </BTooltip>
+              </div>
             </template>
           </DataTable>
         </div>
